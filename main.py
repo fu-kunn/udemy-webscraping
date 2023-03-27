@@ -13,7 +13,14 @@ soup = BeautifulSoup(res.text, 'html.parser')
 # """
 
 n_subscriber = soup.find('p', {'class': 'subscribers'}).text
-test = int(n_subscriber.split('：')[1])
-type = type(test)
+n_subscriber = int(n_subscriber.split('：')[1])
 
-print(type)
+# 型の確認
+# type = type(n_subscriber)
+# print(type)
+
+n_review = soup.find('p', {'class': 'reviews'}).text
+n_review = int(n_review.split('：')[1])
+
+
+print(n_review)
