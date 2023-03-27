@@ -44,10 +44,10 @@ link = item.find('a')['href']
 
 # items-grid_soldOut_31161d6a
 # 在庫なし
-test = items[3].find('p', {'class': 'items-grid_soldOut_31161d6a'}) == None
+# test = items[3].find('p', {'class': 'items-grid_soldOut_31161d6a'}) == None
 # 在庫あり
 is_stock = items[0].find('p', {'class': 'items-grid_soldOut_31161d6a'}) == None
-
+is_stock = '在庫あり' if is_stock == True else '在庫なし'
 
 
 print(is_stock)
