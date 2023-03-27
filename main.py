@@ -34,8 +34,16 @@ item_list = soup.find('ul', {'id': 'itemList'})
 
 items = item_list.find_all('li')
 item = items[0]
+"""
+商品の名前と値段を取得
+"""
 title = item.find('p', {'class': 'items-grid_itemTitleText_31161d6a'}).text
 price = item.find('p', {'class': 'items-grid_price_31161d6a'}).text
 price = int(price.replace('¥', '').replace(',', ''))
 
-print(price)
+
+link = item.find('a')['href']
+
+
+
+print(url)
