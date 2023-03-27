@@ -13,4 +13,7 @@ soup = BeautifulSoup(res.text, 'html.parser')
 # """
 
 n_subscriber = soup.find('p', {'class': 'subscribers'}).text
-print(n_subscriber)
+test = int(n_subscriber.split('：')[1])
+type = type(test)
+
+print(type)
