@@ -40,10 +40,14 @@ item = items[0]
 title = item.find('p', {'class': 'items-grid_itemTitleText_31161d6a'}).text
 price = item.find('p', {'class': 'items-grid_price_31161d6a'}).text
 price = int(price.replace('¥', '').replace(',', ''))
-
-
 link = item.find('a')['href']
 
+# items-grid_soldOut_31161d6a
+# 在庫なし
+test = items[3].find('p', {'class': 'items-grid_soldOut_31161d6a'}) == None
+# 在庫あり
+is_stock = items[0].find('p', {'class': 'items-grid_soldOut_31161d6a'}) == None
 
 
-print(url)
+
+print(is_stock)
