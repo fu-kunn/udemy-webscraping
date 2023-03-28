@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from google.oauth2.service_account import Credentials
 import requests
 import pandas as pd
 
@@ -71,3 +72,17 @@ print(get_data_ec())
 
 
 # print(data_ec)
+
+
+scopes = [
+    'https://www.googleapis.com/auth/spreadsheets',
+    'https://www.googleapis.com/auth/drive'
+]
+
+credentials = Credentials.from_service_account_file(
+    'path/to/the/downloaded/file.json',
+    scopes=scopes
+)
+
+gc = gspread.authorize(credentials)
+
