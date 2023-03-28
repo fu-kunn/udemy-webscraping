@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from google.oauth2.service_account import Credentials
+from gspread_dataframe import set_with_dataframe
 import requests
 import pandas as pd
 import gspread
@@ -101,8 +102,9 @@ df = pd.DataFrame(data[1:], columns=data[0])
 
 data_udemy = get_data_udemy()
 today = datetime.date.today().strftime('%Y/%m/%d')
+data_udemy['date'] = today
+df = df.append(data_udemy, ignore_index=True)
 
+# print(data_udemy)
 
-print(today)
-
-# print(df)
+print(df.tail())
