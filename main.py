@@ -104,7 +104,11 @@ data_udemy = get_data_udemy()
 today = datetime.date.today().strftime('%Y/%m/%d')
 data_udemy['date'] = today
 df = df.append(data_udemy, ignore_index=True)
+# スプシ書き込む場所を指定（1行１列目から）
+set_with_dataframe(worksheet, df, row=1, col=1)
+
+
 
 # print(data_udemy)
 
-print(df.tail())
+# print(df.tail())
