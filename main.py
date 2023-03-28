@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from google.oauth2.service_account import Credentials
 import requests
 import pandas as pd
+import gspread
 
 # Udemy
 def get_data_udemy():
@@ -80,7 +81,7 @@ scopes = [
 ]
 
 credentials = Credentials.from_service_account_file(
-    'path/to/the/downloaded/file.json',
+    'service_account.json',
     scopes=scopes
 )
 
