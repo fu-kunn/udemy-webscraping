@@ -1,28 +1,33 @@
 from bs4 import BeautifulSoup
 import requests
 
+# Udemy
+def get_data_udemy():
+    url = 'https://scraping-for-beginner.herokuapp.com/udemy'
+    res = requests.get(url)
+    soup = BeautifulSoup(res.text, 'html.parser')
 
-# url = 'https://scraping-for-beginner.herokuapp.com/udemy'
-# res = requests.get(url)
-# soup = BeautifulSoup(res.text, 'html.parser')
+    # """
+    # find_allで検索する癖をつける
+    # ➡︎findだと最初の1件のみを取得するため
+    # ➡︎IDの場合はfindでOK
+    # soup.find_all('p')
+    # """
 
+    n_subscriber = soup.find('p', {'class': 'subscribers'}).text
+    n_subscriber = int(n_subscriber.split('：')[1])
 
-# """
-# find_allで検索する癖をつける
-# ➡︎findだと最初の1件のみを取得するため
-# ➡︎IDの場合はfindでOK
-# soup.find_all('p')
-# """
+    # 型の確認
+    # type = type(n_subscriber)
+    # print(type)
 
-# n_subscriber = soup.find('p', {'class': 'subscribers'}).text
-# n_subscriber = int(n_subscriber.split('：')[1])
-
-# 型の確認
-# type = type(n_subscriber)
-# print(type)
-
-# n_review = soup.find('p', {'class': 'reviews'}).text
-# n_review = int(n_review.split('：')[1])
+    n_review = soup.find('p', {'class': 'reviews'}).text
+    n_review = int(n_review.split('：')[1])
+    return {
+        'n_subscriber': n_subscriber,
+        'n_review': n_review
+    }
+print(get_data_udemy())
 
 
 
@@ -57,4 +62,4 @@ for item in items:
 
 
 
-print(data_ec)
+# print(data_ec)
