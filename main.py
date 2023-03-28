@@ -4,6 +4,10 @@ import requests
 import pandas as pd
 import gspread
 
+import os
+from dotenv import load_dotenv
+load_dotenv('.env')
+
 # Udemy
 def get_data_udemy():
     url = 'https://scraping-for-beginner.herokuapp.com/udemy'
@@ -62,7 +66,7 @@ def get_data_ec():
     df_ec = pd.DataFrame(data_ec)
     return df_ec
 
-print(get_data_ec())
+get_data_ec()
 
 
 # items-grid_soldOut_31161d6a
@@ -87,3 +91,10 @@ credentials = Credentials.from_service_account_file(
 
 gc = gspread.authorize(credentials)
 
+SP_SHEET_KEY = os.environ.get('SP_KEY')
+sh = gc.open_by_key(SP_SHEET_KEY)
+SP_SHEET = 'db'
+worksheet = sh.worksheet(SP_SHEET)
+data = worksheet.get_all_values()
+
+print(data)
