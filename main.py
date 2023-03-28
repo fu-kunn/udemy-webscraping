@@ -3,6 +3,7 @@ from google.oauth2.service_account import Credentials
 import requests
 import pandas as pd
 import gspread
+import datetime
 
 import os
 from dotenv import load_dotenv
@@ -98,5 +99,10 @@ worksheet = sh.worksheet(SP_SHEET)
 data = worksheet.get_all_values()
 df = pd.DataFrame(data[1:], columns=data[0])
 
+data_udemy = get_data_udemy()
+today = datetime.date.today().strftime('%Y/%m/%d')
 
-print(df)
+
+print(today)
+
+# print(df)
