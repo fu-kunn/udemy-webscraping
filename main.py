@@ -33,21 +33,28 @@ soup = BeautifulSoup(res.text, 'html.parser')
 item_list = soup.find('ul', {'id': 'itemList'})
 
 items = item_list.find_all('li')
-item = items[0]
 """
-商品の名前と値段を取得
+商品の情報を取得
+・名前
+・値段
+・URL
 """
-title = item.find('p', {'class': 'items-grid_itemTitleText_31161d6a'}).text
-price = item.find('p', {'class': 'items-grid_price_31161d6a'}).text
-price = int(price.replace('¥', '').replace(',', ''))
-link = item.find('a')['href']
+data_ec = []
+for item in items:
+    datum_ec = {}
+    datum_ec['title'] = item.find('p', {'class': 'items-grid_itemTitleText_31161d6a'}).text
+    price = item.find('p', {'class': 'items-grid_price_31161d6a'}).text
+    datum_ec['price'] = int(price.replace('¥', '').replace(',', ''))
+    datum_ec['link'] = item.find('a')['href']
+    is_stock = items[0].find('p', {'class': 'items-grid_soldOut_31161d6a'}) == None
+    datum_ec['is_stock'] = '在庫あり' if is_stock == True else '在庫なし'
+    data_ec.append(datum_ec)
 
 # items-grid_soldOut_31161d6a
 # 在庫なし
 # test = items[3].find('p', {'class': 'items-grid_soldOut_31161d6a'}) == None
 # 在庫あり
-is_stock = items[0].find('p', {'class': 'items-grid_soldOut_31161d6a'}) == None
-is_stock = '在庫あり' if is_stock == True else '在庫なし'
 
 
-print(is_stock)
+
+print(data_ec)
