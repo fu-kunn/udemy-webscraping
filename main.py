@@ -5,6 +5,7 @@ import requests
 import pandas as pd
 import gspread
 import datetime
+import altair as alt
 
 import os
 from dotenv import load_dotenv
@@ -68,7 +69,7 @@ def get_data_ec():
     df_ec = pd.DataFrame(data_ec)
     return df_ec
 
-get_data_ec()
+# get_data_ec()
 
 
 # items-grid_soldOut_31161d6a
@@ -105,9 +106,12 @@ today = datetime.date.today().strftime('%Y/%m/%d')
 data_udemy['date'] = today
 df = df.append(data_udemy, ignore_index=True)
 # スプシ書き込む場所を指定（1行１列目から）
-set_with_dataframe(worksheet, df, row=1, col=1)
+# set_with_dataframe(worksheet, df, row=1, col=1)
 
 
+data = worksheet.get_all_values()
+df_udmey = pd.DataFrame(data[1:], columns=data[0])
+print(df_udmey[:3])
 
 # print(data_udemy)
 
