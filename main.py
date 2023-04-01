@@ -1,11 +1,12 @@
-from bs4 import BeautifulSoup
 from google.oauth2.service_account import Credentials
 from gspread_dataframe import set_with_dataframe
+from bs4 import BeautifulSoup
 import requests
 import pandas as pd
 import gspread
 import datetime
 import altair as alt
+import streamlit as st
 
 import os
 from dotenv import load_dotenv
@@ -104,15 +105,41 @@ df = pd.DataFrame(data[1:], columns=data[0])
 data_udemy = get_data_udemy()
 today = datetime.date.today().strftime('%Y/%m/%d')
 data_udemy['date'] = today
+# エラー発生
 df = df.append(data_udemy, ignore_index=True)
 # スプシ書き込む場所を指定（1行１列目から）
 # set_with_dataframe(worksheet, df, row=1, col=1)
 
 
+
 data = worksheet.get_all_values()
 df_udmey = pd.DataFrame(data[1:], columns=data[0])
-print(df_udmey[:3])
 
-# print(data_udemy)
+# Layered chart with Dual-Axisからのコピー
+base = alt.Chart(df_udmey).encode(
+    alt.X('date:T', axis=alt.Axis(title=None))
+)
 
-# print(df.tail())
+line1 = base.mark_line(opacity=0.3, color='#57A44C').encode(
+    alt.Y('n_subscriber',
+          axis=alt.Axis(title='受講生数', titleColor='#57A44C'))
+)
+
+line2 = base.mark_line(stroke='#5276A7', interpolate='monotone').encode(
+    alt.Y('n_review',
+          axis=alt.Axis(title='レビュー数', titleColor='#5276A7'))
+)
+
+chart = alt.layer(line1, line2).resolve_scale(
+    y = 'independent'
+)
+
+df_udmey = df_udmey.astype({
+    'n_subscriber': int,
+    'n_review': int
+})
+
+# st.altair_chart(chart, use_container_width=True)
+# st.write('aaaaa')
+print(df_udmey.dtypes)
+# print(df_udmey['n_subscriber'].min() - 10)
