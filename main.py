@@ -75,53 +75,40 @@ if __name__ == '__main__':
     main()
 
 
+# app.pyに転記
+# # いまにゅのECサイト
+# def get_data_ec():
+#     url_ec = 'https://scraping.official.ec/'
+#     res = requests.get(url_ec)
+#     soup = BeautifulSoup(res.text, 'html.parser')
+#     item_list = soup.find('ul', {'id': 'itemList'})
 
-
-
-
-
-# いまにゅのECサイト
-def get_data_ec():
-    url_ec = 'https://scraping.official.ec/'
-    res = requests.get(url_ec)
-    soup = BeautifulSoup(res.text, 'html.parser')
-    item_list = soup.find('ul', {'id': 'itemList'})
-
-    items = item_list.find_all('li')
-    """
-    商品の情報を取得
-    ・名前
-    ・値段
-    ・URL
-    """
-    data_ec = []
-    for item in items:
-        datum_ec = {}
-        datum_ec['title'] = item.find('p', {'class': 'items-grid_itemTitleText_31161d6a'}).text
-        price = item.find('p', {'class': 'items-grid_price_31161d6a'}).text
-        datum_ec['price'] = int(price.replace('¥', '').replace(',', ''))
-        datum_ec['link'] = item.find('a')['href']
-        is_stock = items[0].find('p', {'class': 'items-grid_soldOut_31161d6a'}) == None
-        datum_ec['is_stock'] = '在庫あり' if is_stock == True else '在庫なし'
-        data_ec.append(datum_ec)
+#     items = item_list.find_all('li')
+#     """
+#     商品の情報を取得
+#     ・名前
+#     ・値段
+#     ・URL
+#     """
+#     data_ec = []
+#     for item in items:
+#         datum_ec = {}
+#         datum_ec['title'] = item.find('p', {'class': 'items-grid_itemTitleText_31161d6a'}).text
+#         price = item.find('p', {'class': 'items-grid_price_31161d6a'}).text
+#         datum_ec['price'] = int(price.replace('¥', '').replace(',', ''))
+#         datum_ec['link'] = item.find('a')['href']
+#         is_stock = items[0].find('p', {'class': 'items-grid_soldOut_31161d6a'}) == None
+#         datum_ec['is_stock'] = '在庫あり' if is_stock == True else '在庫なし'
+#         data_ec.append(datum_ec)
   
-    df_ec = pd.DataFrame(data_ec)
-    return df_ec
+#     df_ec = pd.DataFrame(data_ec)
+#     return df_ec
 
 # get_data_ec()
 # items-grid_soldOut_31161d6a
 # 在庫なし
 # test = items[3].find('p', {'class': 'items-grid_soldOut_31161d6a'}) == None
 # 在庫あり
-
-
-
-
-
-
-
-
-
 
 # data = worksheet.get_all_values()
 # df_udmey = pd.DataFrame(data[1:], columns=data[0])

@@ -42,6 +42,7 @@ def get_data_ec():
     df_ec = pd.DataFrame(data_ec)
     return df_ec
 
+
 def get_worksheet():
     scopes = [
         'https://www.googleapis.com/auth/spreadsheets',
@@ -76,7 +77,6 @@ def get_chart():
     ymax1 = df_udmey['n_subscriber'].max() + 10
     ymin2 = df_udmey['n_review'].min() - 100
     ymax2 = df_udmey['n_review'].max() + 100
-    print(ymax2)
 
     # Layered chart with Dual-Axisからのコピー
     base = alt.Chart(df_udmey).encode(
@@ -105,5 +105,9 @@ def get_chart():
 data_ec = get_data_ec()
 chart = get_chart()
 
-st.title("aaaa")
+st.title("Webスクレイピング活用アプリ")
+
+st.write('## Udemy情報')
 st.altair_chart(chart, use_container_width=True)
+
+st.write('## EC在庫情報', data_ec)

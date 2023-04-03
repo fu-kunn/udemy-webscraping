@@ -1,0 +1,8 @@
+# 必要な外部ライブラリ
+breatuifulsoup4
+pandas
+streamlit
+altair
+gspread
+google
+gspread_dataframe
