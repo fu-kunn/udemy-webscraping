@@ -23,6 +23,7 @@ def get_data_ec():
     # ・名前
     # ・値段
     # ・URL
+    # クラス名が変わっていた？？？→商品情報がループで取得できなくなっていた
     # """
     data_ec = []
     for item in items:
@@ -40,8 +41,6 @@ def get_data_ec():
     
     df_ec = pd.DataFrame(data_ec)
     return df_ec
-
-# print(data_ec)
 
 def get_worksheet():
     scopes = [
@@ -62,8 +61,6 @@ def get_worksheet():
     worksheet = sh.worksheet(SP_SHEET)
     return worksheet
 
-worksheet = get_worksheet()
-
 
 def get_chart():
     worksheet = get_worksheet()
@@ -77,8 +74,9 @@ def get_chart():
     # 最小値・最大値
     ymin1 = df_udmey['n_subscriber'].min() - 10
     ymax1 = df_udmey['n_subscriber'].max() + 10
-    ymin2 = df_udmey['n_subscriber'].min() - 10
-    ymax2 = df_udmey['n_subscriber'].max() + 10
+    ymin2 = df_udmey['n_review'].min() - 100
+    ymax2 = df_udmey['n_review'].max() + 100
+    print(ymax2)
 
     # Layered chart with Dual-Axisからのコピー
     base = alt.Chart(df_udmey).encode(
@@ -86,10 +84,10 @@ def get_chart():
     )
 
     line1 = base.mark_line(opacity=0.3, color='#57A44C').encode(
-    alt.Y('n_subscriber',
-          axis=alt.Axis(title='受講生数', titleColor='#57A44C'),
-          scale=alt.Scale(domain=[ymin1, ymax1])
-          )
+        alt.Y('n_subscriber',
+            axis=alt.Axis(title='受講生数', titleColor='#57A44C'),
+            scale=alt.Scale(domain=[ymin1, ymax1])
+            )
     )
 
     line2 = base.mark_line(stroke='#5276A7', interpolate='monotone').encode(
