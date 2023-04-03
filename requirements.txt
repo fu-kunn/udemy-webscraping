@@ -1,5 +1,5 @@
 # 必要な外部ライブラリ
-breatuifulsoup4
+beautifulsoup4
 pandas
 streamlit
 altair
